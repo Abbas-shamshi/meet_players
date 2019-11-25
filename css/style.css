@@ -1,0 +1,101 @@
+body {
+  font-family: 'Cinzel', serif;
+}
+
+li {
+  padding-right: 30px;
+}
+
+nav {
+  background-color: #c48be6;
+}
+
+a {
+  color: #40004d;
+}
+
+a:hover {
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 22px;
+}
+.nav-item{
+  font-size: 19px;
+}
+
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: #c48be6;
+}
+
+.footer-text {
+  padding: 12px;
+  text-align: center;
+  color: white;
+}
+
+.block1 {
+  width: 500px;
+  padding: 20px;
+  background-color: #f3f3f3;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  /* border: 5px solid #283807; */
+  border: 5px solid #40004d;
+  border-radius: 25px;
+  margin: auto;
+  margin-top: 90px;
+}
+
+.block1 h1, h4 {
+  color: #40004d;
+}
+
+.block1 h1 {
+  text-align: center;
+}
+
+.form-control {
+  border-radius: 15px;
+  height: 40px;
+  font-size: 20px;
+  background-color: #e4e4e4;
+  margin-bottom: 10px;
+}
+
+#submit {
+  border-radius: 10px;
+  height: 40px;
+  font-size: 20px;
+  color: #fff;
+  border: none;
+  background-color: #40004d;
+}
+
+.meet-tag h1 {
+  font-weight: bold;
+}
+.or {
+  color: #40004d;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.login a{
+  border-radius: 10px;
+  height: 40px;
+  font-size: 20px;
+  color: #fff;
+  border: none;
+  background-color: #40004d;
+  padding: 5px 12px;
+  text-decoration: none;
+  float: right;
+}
+.fas{
+  font-size: 16px;
+}
