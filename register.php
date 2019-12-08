@@ -58,7 +58,6 @@ if (!empty($_POST)) {
         $user = createUser($username, $firstname, $lastname, $email, $password);
         // echo "user name created";
         // print_r($errors);
-
         if ($user <> 1) {
             $errors[] = "registration error";
         }
@@ -80,7 +79,7 @@ require_once("header.php");
 
             <h1>Register</h1>
             <h4>Create your Profile</h4>
-            <div class="info">
+            <div>
                 <form id="contactform" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
                     <input type="text" id="u_name" name="username" value="" class="form-control" placeholder="User Name">
                     <span class="error" id="u_name_err">
@@ -119,7 +118,7 @@ require_once("header.php");
                             <div class="or">OR</div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-12 col-sm-12 m-auto login">
-                            <a href="" class="">Log In
+                            <a href="login.php" class="">Log In
                                 <i class="fas fa-user" aria-hidden="true"></i>
                             </a>
                         </div>

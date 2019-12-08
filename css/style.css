@@ -21,7 +21,8 @@ a:hover {
 .navbar-brand {
   font-size: 22px;
 }
-.nav-item{
+
+.nav-item {
   font-size: 19px;
 }
 
@@ -49,7 +50,6 @@ footer {
   margin: auto;
   margin-top: 90px;
   margin-bottom: 60px;
-
 }
 
 .block1 h1, h4 {
@@ -59,7 +59,21 @@ footer {
 .block1 h1 {
   text-align: center;
 }
-
+.block2 {
+  width: 450px;
+  padding: 20px;
+  background-color: #f3f3f3;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  /* border: 5px solid #283807; */
+  border: 5px solid #40004d;
+  border-radius: 25px;
+  margin-top: 110px;
+  margin-bottom: 60px;
+}
+.meet-tag2{
+  margin-right: 50px;
+  text-align: right;
+}
 .form-control {
   border-radius: 15px;
   height: 40px;
@@ -80,6 +94,7 @@ footer {
 .meet-tag h1 {
   font-weight: bold;
 }
+
 .or {
   color: #40004d;
   font-size: 22px;
@@ -87,7 +102,7 @@ footer {
   text-align: center;
 }
 
-.login a{
+.login a {
   border-radius: 10px;
   height: 40px;
   font-size: 20px;
@@ -98,9 +113,48 @@ footer {
   text-decoration: none;
   float: right;
 }
-.fas{
+
+.fas {
   font-size: 16px;
 }
-.error{
+
+.error {
   color: red;
+}
+
+.profile-tag h1 {
+  text-align: center;
+  margin-top: 70px;
+}
+.profile-data{
+  margin-bottom: 50px;
+  width: 100%;
+}
+.profile-data th{
+  padding: 40px;
+
+}
+.profile-data td{
+  /* padding-left: 100px; */
+  /* margin-bottom: 100px; */
+}
+.profile-data th{
+  margin-right: 100px;
+}
+.button{
+  text-align: center;
+}
+.btn-width{
+  width: 50%;
+}
+select{
+  border-radius: 15px;
+  height: 40px;
+  font-size: 20px;
+  background-color: #e4e4e4;
+  /* margin-bottom: 10px; */
+  width: 100%;
+}
+.profile{
+  background-color: rgb(201, 200, 200);
 }
