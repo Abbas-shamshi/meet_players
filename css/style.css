@@ -60,7 +60,7 @@ footer {
   text-align: center;
 }
 .block2 {
-  width: 450px;
+  width: 500px;
   padding: 20px;
   background-color: #f3f3f3;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
@@ -101,8 +101,11 @@ footer {
   font-weight: bold;
   text-align: center;
 }
+.abutton{
+  margin-bottom: 30px;
+}
 
-.login a {
+.abutton a {
   border-radius: 10px;
   height: 40px;
   font-size: 20px;
@@ -111,7 +114,6 @@ footer {
   background-color: #40004d;
   padding: 5px 12px;
   text-decoration: none;
-  float: right;
 }
 
 .fas {
@@ -125,13 +127,14 @@ footer {
 .profile-tag h1 {
   text-align: center;
   margin-top: 70px;
+  font-size: 28px;
 }
 .profile-data{
   margin-bottom: 50px;
   width: 100%;
 }
 .profile-data th{
-  padding: 40px;
+  padding: 16px;
 
 }
 .profile-data td{
@@ -140,6 +143,9 @@ footer {
 }
 .profile-data th{
   margin-right: 100px;
+}
+.profile-data td{
+  margin-right: 50px;
 }
 .button{
   text-align: center;
@@ -157,4 +163,8 @@ select{
 }
 .profile{
   background-color: rgb(201, 200, 200);
+}
+.edit-block{
+  margin-top: 150px;
+  text-align: center;
 }

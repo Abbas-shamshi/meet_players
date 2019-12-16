@@ -16,6 +16,12 @@ if (mysqli_connect_errno()) {
 } else {
     // echo "Connection Succesful<br>";
 }
+require_once("class.user.php");
+session_start();
+//loggedInUser can be used globally if constructed
+if (isset($_SESSION["ThisUser"]) && is_object($_SESSION["ThisUser"])) {
+    $loggedInUser = $_SESSION["ThisUser"];
+}
 
 
 date_default_timezone_set("America/New_York");      //default time zone set to ameican time

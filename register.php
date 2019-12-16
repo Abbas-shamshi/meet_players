@@ -61,6 +61,10 @@ if (!empty($_POST)) {
         if ($user <> 1) {
             $errors[] = "registration error";
         }
+        else{
+            header("Location: profile.php");
+            exit;
+        }
     }
     // if (count($errors) == 0) {
     //     $successes[] = "registration successful";
@@ -117,8 +121,8 @@ require_once("header.php");
                         <div class="col-lg-2 col-md-2 col-sm-4 col-sm-4 m-auto">
                             <div class="or">OR</div>
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-12 col-sm-12 m-auto login">
-                            <a href="login.php" class="">Log In
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-sm-12 m-auto abutton">
+                            <a href="login.php" class="float-right">Log In
                                 <i class="fas fa-user" aria-hidden="true"></i>
                             </a>
                         </div>

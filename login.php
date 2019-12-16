@@ -2,8 +2,10 @@
 require_once("config.php");
 require_once("functions.php");
 
-// $errors = array("a" => "", "b" => "");
-// $errors=array("f"=>"");
+if(isUserLoggedIn()) {
+	header("Location: profile.php");
+	die();
+}
 if (!empty($_POST)) {
     $errors = array();
 
@@ -32,6 +34,19 @@ if (!empty($_POST)) {
         } elseif ($password != $user['user_password']) {
             $errors["b"] = "*Invalid Password";
         } else {
+            $loggedInUser = new loggedInuser();
+            $loggedInUser->email = $user["email"];
+            $loggedInUser->user_id = $user["userid"];
+            $loggedInUser->hash_pw = $user["user_password"];
+            $loggedInUser->first_name = $user["firstname"];
+            $loggedInUser->last_name = $user["lastname"];
+            $loggedInUser->username = $user["username"];
+            $loggedInUser->member_since = $user["member_since"];
+
+            //pass the values of $loggedInUser into the session -
+            // you can directly pass the values into the array as well.
+
+            $_SESSION["ThisUser"] = $loggedInUser;
             header("Location: profile.php");
             exit;
         }
@@ -87,8 +102,8 @@ require_once("header.php");
                         <div class="col-lg-2 col-md-2 col-sm-4 col-sm-4 m-auto">
                             <div class="or">OR</div>
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-12 col-sm-12 m-auto login">
-                            <a href="register.php" class="">Register
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-sm-12 m-auto abutton">
+                            <a href="register.php" class="float-right">Register
                                 <i class="fas fa-user-plus" aria-hidden="true"></i>
                             </a>
                         </div>

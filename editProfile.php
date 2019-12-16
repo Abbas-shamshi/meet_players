@@ -2,12 +2,19 @@
 require_once("config.php");
 require_once("functions.php");
 
-$errors = array("a" => "", "b" => "", "c" => "", "d" => "", "e" => "", "f" => "");
 global $loggedInUser;
-$ThisUserId = $loggedInUser->user_id;
 if (isUserLoggedIn()) {
 
-    // $errors=array("f"=>"");
+    $profile_id = $_GET['profileid'];
+    $ThisUserId = $loggedInUser->user_id;
+    $thisProfile = fetchProfile($profile_id);
+    /* ?>
+<pre><?php
+        print_r($thisProfile);
+        ?></pre>
+<?php */
+    //echo $thisProfile[0]['profileid'];
+
     if (!empty($_POST)) {
         $errors = array();
         $profile_name = trim($_POST["profile_name"]);
@@ -21,7 +28,7 @@ if (isUserLoggedIn()) {
         $howoften = trim($_POST["howoften"]);
 
 
-        $profile = InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $ThisUserId);
+        $profile = EditProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $profile_id);
         // echo "user name created";
         // print_r($errors);
 
@@ -37,8 +44,8 @@ if (isUserLoggedIn()) {
     }
 } else {
     header("Location: login.php");
-	die();
- }
+    die();
+}
 
 require_once("head.php");
 
@@ -50,29 +57,29 @@ require_once("header.php");
     <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12 m-auto profile">
         <fieldset>
             <legend class="profile-tag">
-                <h1>Your Profile</h1>
+                <h1>Edit your Profile</h1>
             </legend>
             <form id="profileform" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
                 <div class="profile-data">
                     <table>
                         <tr>
                             <th>Profile Name</th>
-                            <td> <input type="text" id="age" name="profile_name" value="" class="form-control mb-0" placeholder="Save Profile Name">
+                            <td> <input type="text" id="age" name="profile_name" value="<?php print $thisProfile[0]['profilename'] ?>" class="form-control mb-0" placeholder="<?php print $thisProfile[0]['profilename'] ?>">
                             </td>
                         </tr>
                         <tr>
                             <th>Age</th>
-                            <td> <input type="text" id="age" name="age" value="" class="form-control mb-0" placeholder="Your Age">
+                            <td> <input type="text" id="age" name="age" value="<?php print $thisProfile[0]['age'] ?>" class="form-control mb-0" placeholder="<?php print $thisProfile[0]['age'] ?>">
                             </td>
                         </tr>
                         <tr>
                             <th>Height</th>
-                            <td> <input type="text" id="height" name="height" value="" class="form-control mb-0" placeholder="Your Height">
+                            <td> <input type="text" id="height" name="height" value="<?php print $thisProfile[0]['height'] ?>" class="form-control mb-0" placeholder="<?php print $thisProfile[0]['height'] ?>">
                             </td>
                         </tr>
                         <tr>
                             <th>Weight</th>
-                            <td> <input type="text" id="weight" name="weight" value="" class="form-control mb-0" placeholder="Your Weight">
+                            <td> <input type="text" id="weight" name="weight" value="<?php print $thisProfile[0]['weight'] ?>" class="form-control mb-0" placeholder="<?php print $thisProfile[0]['weight'] ?>">
                             </td>
                         </tr>
                         <tr>
@@ -94,29 +101,19 @@ require_once("header.php");
                         </tr>
                         <tr>
                             <th>Location</th>
-                            <td> <input type="text" id="location" name="location" value="" class="form-control mb-0" placeholder="Where are you located">
+                            <td> <input type="text" id="location" name="location" value="<?php print $thisProfile[0]['location'] ?>" class="form-control mb-0" placeholder="<?php print $thisProfile[0]['location'] ?>">
                             </td>
                         </tr>
                         <tr>
                             <th>How often you play</th>
-                            <td> <input type="text" id="howoften" name="howoften" value="" class="form-control mb-0" placeholder="How often you play">
+                            <td> <input type="text" id="howoften" name="howoften" value="<?php print $thisProfile[0]['howoften'] ?>" class="form-control mb-0" placeholder="<?php print $thisProfile[0]['howoften'] ?>">
                             </td>
                         </tr>
-                        <!-- <tr>
-                            <th>Locate</th>
-                            <td> <input type="text" id="email" name="email" value="" class="form-control mb-0" placeholder="Email">
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>What You Play</th>
-                            <td> <input type="text" id="email" name="email" value="" class="form-control mb-0" placeholder="Email">
-                            </td>
-                        </tr> -->
 
                     </table>
 
                     <div class="button">
-                        <button type="submit" id="submit" class="btn-width" name="submit">Submit
+                        <button type="submit" id="submit" class="btn-width" name="submit">Update
                             <i class="fas fa-server" aria-hidden="true"></i>
                         </button>
                     </div>
