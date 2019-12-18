@@ -3,13 +3,21 @@ require_once("config.php");
 require_once("functions.php");
 require_once("head.php");
 require_once("header.php");
-$profiles = fetchShortProfiles();
+if (!empty($_POST['location'])) {
+    $searchquery = $_POST['location'];
+
+    $profiles = fetchSearcProfileslocation($searchquery);
+}
+else{
+    $searchquery = $_POST['loc'];
+    $profiles = fetchSearcProfileslocation($searchquery);
+
+}
 
 ?>
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-12 col-sm-12 margin-top">
-    <h3>Search</h3>
-
+        <h3>Search</h3>
         <form id="search" action="searchfname.php" method="post">
             <div class="profile-data">
                 <p>
@@ -34,11 +42,11 @@ $profiles = fetchShortProfiles();
                 </p>
             </div>
         </form>
-        <form id="search" action="searchlocation.php" method="post">
+        <form id="search" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
             <div class="profile-data">
                 <p>
                     <label>Location:</label>
-                    <input type="text" name="loc" />
+                    <input type="text" name="location" />
                 </p>
                 <p>
                     <label>&nbsp;</label>
