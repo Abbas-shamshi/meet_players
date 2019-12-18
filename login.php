@@ -29,9 +29,11 @@ if (!empty($_POST)) {
     //End data validation
     if ($errors["a"] == "" and $errors["b"] == "") {
         $user = FetchUserDetails($username, $password);
+        $hashed_pas = generateHash($password, $user["user_password"]);
+
         if ($user == "") {
             $errors["a"] = "*Invalid User Name";
-        } elseif ($password != $user['user_password']) {
+        } elseif ($hashed_pas != $user['user_password']) {
             $errors["b"] = "*Invalid Password";
         } else {
             $loggedInUser = new loggedInuser();

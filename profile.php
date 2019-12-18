@@ -11,7 +11,9 @@ if (isUserLoggedIn()) {
     if (!empty($_POST)) {
         $errors = array();
         $profile_name = trim($_POST["profile_name"]);
-
+        $team = trim($_POST["team"]);
+        $position = trim($_POST["position"]);
+        $college = trim($_POST["college"]);
         $age = trim($_POST["age"]);
         $height = trim($_POST["height"]);
         $weight = trim($_POST["weight"]);
@@ -19,14 +21,23 @@ if (isUserLoggedIn()) {
         $sport = trim($_POST["sport"]);
         $location = trim($_POST["location"]);
         $howoften = trim($_POST["howoften"]);
+        $experience = trim($_POST["experience"]);
+        $play_status = trim($_POST["play_status"]);
+        $achivement_1 = trim($_POST["achivement_1"]);
+        $achivement_2 = trim($_POST["achivement_2"]);
+        $achivement_3 = trim($_POST["achivement_3"]);
+        $achivement_4 = trim($_POST["achivement_4"]);
+        $achivement_5 = trim($_POST["achivement_5"]);
+
+        
 
 
-        $profile = InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $ThisUserId);
+        $profile = InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $team, $position, $college, $experience, $play_status, $ThisUserId,$achivement_1,$achivement_2,$achivement_3,$achivement_4,$achivement_5);
         // echo "user name created";
         // print_r($errors);
 
         if ($profile == 1) {
-            header("Location: profilepic.php");
+            header("Location: index.php");
         }
         // }
         /* if (count($errors) == 0) {
@@ -37,8 +48,8 @@ if (isUserLoggedIn()) {
     }
 } else {
     header("Location: login.php");
-	die();
- }
+    die();
+}
 
 require_once("head.php");
 
@@ -57,7 +68,22 @@ require_once("header.php");
                     <table>
                         <tr>
                             <th>Profile Name</th>
-                            <td> <input type="text" id="age" name="profile_name" value="" class="form-control mb-0" placeholder="Save Profile Name">
+                            <td> <input type="text" id="profile_name" name="profile_name" value="" class="form-control mb-0" placeholder="Save Profile Name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Team</th>
+                            <td> <input type="text" id="team" name="team" value="" class="form-control mb-0" placeholder="Team you play for?">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Position</th>
+                            <td> <input type="text" id="position" name="position" value="" class="form-control mb-0" placeholder="Position you play?">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>College</th>
+                            <td> <input type="text" id="college" name="college" value="" class="form-control mb-0" placeholder="College name">
                             </td>
                         </tr>
                         <tr>
@@ -102,16 +128,42 @@ require_once("header.php");
                             <td> <input type="text" id="howoften" name="howoften" value="" class="form-control mb-0" placeholder="How often you play">
                             </td>
                         </tr>
-                        <!-- <tr>
-                            <th>Locate</th>
-                            <td> <input type="text" id="email" name="email" value="" class="form-control mb-0" placeholder="Email">
+                        <tr>
+                            <th>Experience</th>
+                            <td> <input type="text" id="experience" name="experience" value="" class="form-control mb-0" placeholder="How much experience">
                             </td>
                         </tr>
                         <tr>
-                            <th>What You Play</th>
-                            <td> <input type="text" id="email" name="email" value="" class="form-control mb-0" placeholder="Email">
+                            <th>Playing Status</th>
+                            <td> <input type="radio" name="play_status" value="Active" checked> Active
+                                <input type="radio" class="ml-5" name="play_status" value="Inactive"> Inactive
                             </td>
-                        </tr> -->
+                        </tr>
+                        <tr>
+                            <th>Achivement 1</th>
+                            <td> <input type="text" id="achivement_1" name="achivement_1" value="" class="form-control mb-0" placeholder="How much experience">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Achivement 2</th>
+                            <td> <input type="text" id="achivement_2" name="achivement_2" value="" class="form-control mb-0" placeholder="Write Your Achivement here">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Achivement 3</th>
+                            <td> <input type="text" id="achivement_3" name="achivement_3" value="" class="form-control mb-0" placeholder="Write Your Achivement here">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Achivement 4</th>
+                            <td> <input type="text" id="achivement_4" name="achivement_4" value="" class="form-control mb-0" placeholder="Write Your Achivement here">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Achivement 5</th>
+                            <td> <input type="text" id="achivement_5" name="achivement_5" value="" class="form-control mb-0" placeholder="Write Your Achivement here">
+                            </td>
+                        </tr>
 
                     </table>
 
@@ -127,6 +179,6 @@ require_once("header.php");
 
 </div>
 <?php
-require_once("footer.php");
+                                            require_once("footer.php");
 
 ?>

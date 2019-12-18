@@ -12,12 +12,8 @@ function createUser($username, $firstname, $lastname, $email, $password)
             (count($character_array) - 1)
         )];
     }
-    // echo $rand_string."<br>";
-    // echo $username."<br>";
-    // echo $firstname."<br>";
-    // echo $lastname."<br>";
-    // echo $email."<br>";
-    // echo $password."<br>";
+    
+	$newpassword = generateHash($password);
 
 
     $stmt = $mysqli->prepare(
@@ -44,7 +40,7 @@ function createUser($username, $firstname, $lastname, $email, $password)
         0
 		)"
     );
-    $stmt->bind_param("sssss", $username, $firstname, $lastname, $email, $password);
+    $stmt->bind_param("sssss", $username, $firstname, $lastname, $email, $newpassword);
     $result = $stmt->execute();
     $stmt->close();
     return $result;
@@ -90,7 +86,7 @@ function FetchUserDetails($username, $password)
     $stmt->close();
     return ($row);
 }
-function InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $ThisUserId)
+function InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $team, $position, $college, $experience, $play_status, $ThisUserId, $achivement_1, $achivement_2, $achivement_3, $achivement_4, $achivement_5)
 {
     $character_array = array_merge(range('A', 'Z'), range(0, 9));
     $profile_id = "";
@@ -106,6 +102,9 @@ function InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $
             
         profile_id,
         profile_name,
+        team,
+        position,
+        college,
 		age,
         height,
 		weight,
@@ -113,12 +112,18 @@ function InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $
 		sport,
         howoften,
 		location,
-		date
+        experience,
+        status,
+        profile_status,
+		profile_date
 		)
 		VALUES (
        
         ?,
         ?,
+        ?,
+        ?,
+        ?,
 		?,
 		?,
 		?,
@@ -126,10 +131,13 @@ function InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $
         ?,
         ?,
         ?,
+        ?,
+        ?,
+        1,
 		'" . time() . "'
 		)"
     );
-    $stmt->bind_param("sssssssss", $profile_id, $profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften);
+    $stmt->bind_param("ssssssssssssss", $profile_id, $profile_name, $team, $position, $college, $age, $height, $weight, $gender, $sport,  $howoften, $location, $experience, $play_status);
     $result = $stmt->execute();
     $stmt->close();
     //Insert into profiles.... for profile id and user id
@@ -148,7 +156,34 @@ function InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $
     $stmt->bind_param("ss", $profile_id, $ThisUserId);
     $stmt->execute();
     $stmt->close();
+
+    $stmt = $mysqli->prepare(
+        "INSERT INTO profile_achivements (
+
+            
+            profile_id,
+            achivement_1,
+            achivement_2,
+            achivement_3,
+            achivement_4,
+            achivement_5
+
+		)
+		VALUES (
+       
+        ?,
+		?,
+        ?,
+        ?,
+        ?,
+        ?
+		)"
+    );
+    $stmt->bind_param("ssssss", $profile_id, $achivement_1, $achivement_2, $achivement_3, $achivement_4, $achivement_5);
+    $stmt->execute();
+    $stmt->close();
     return $result;
+    echo $achivement_1;
 }
 
 
@@ -189,16 +224,16 @@ function fetchprofileName($ThisUserId)
     FROM profiledetails 
     INNER JOIN profiles 
     ON profiledetails.profile_id=profiles.profile_id
-    WHERE profiles.userid=?
+    WHERE profiles.userid=? AND profiledetails.profile_status=1
     ");
     $stmt->bind_param("s", $ThisUserId);
 
     $stmt->execute();
-    $stmt->bind_result($profile_name,$profile_id);
+    $stmt->bind_result($profile_name, $profile_id);
     while ($stmt->fetch()) {
         $row[] = array(
             'profilename' => $profile_name,
-            'profile_id' =>$profile_id
+            'profile_id' => $profile_id
         );
     }
     $stmt->close();
@@ -214,36 +249,61 @@ function fetchprofile($profile_id)
     global $mysqli;
     $stmt = $mysqli->prepare(
         "SELECT
-        profile_id,
-        profile_name,
-		age,
-        height,
-		weight,
-		gender,
-		sport,
-        howoften,
-		location 
-        FROM profiledetails 
+        pd.profile_id,
+        pd.profile_name,
+        pd.team,
+        pd.position,
+        pd.college,
+		pd.age,
+        pd.height,
+		pd.weight,
+		pd.gender,
+		pd.sport,
+        pd.howoften,
+		pd.location,
+        pd.experience,
+        pd.status,
+        pa.achivement_1,
+        pa.achivement_2,
+        pa.achivement_3,
+        pa.achivement_4,
+        pa.achivement_5
+
+        FROM profiledetails pd
+        INNER JOIN profile_achivements pa ON pa.profile_id=pd.profile_id 
         WHERE
-        profile_id = ?
+        pd.profile_id = ?
         LIMIT 1
         "
     );
     $stmt->bind_param("s", $profile_id);
 
     $stmt->execute();
-    $stmt->bind_result($profileid, $profile_name, $age, $height, $weight, $gender, $sport, $howoften,$location);
+    $stmt->bind_result($profileid, $profile_name, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$achivement_1,$achivement_2,$achivement_3,$achivement_4,$achivement_5);
     while ($stmt->fetch()) {
         $row[] = array(
             'profileid' => $profileid,
             'profilename' => $profile_name,
+            'team' => $team,
+            'position' => $position,
+            'college' => $college,
+
             'age' => $age,
             'height' => $height,
             'weight' => $weight,
             'gender' => $gender,
             'sport' => $sport,
             'howoften' => $howoften,
-            'location' => $location
+            'location' => $location,
+            'experience' => $experience,
+
+            'play_status' => $play_status,
+            'achivement_1' => $achivement_1,
+            'achivement_2' => $achivement_2,
+            'achivement_3' => $achivement_3,
+            'achivement_4' => $achivement_4,
+            'achivement_5' => $achivement_5,
+
         );
     }
     $stmt->close();
@@ -251,34 +311,57 @@ function fetchprofile($profile_id)
 }
 
 
-function EditProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften,$profile_id){
+function EditProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $team, $position, $college, $experience, $play_status, $profile_id,$achivement_1,$achivement_2,$achivement_3,$achivement_4,$achivement_5)
+{
     global $mysqli;
     $stmt = $mysqli->prepare(
         "UPDATE profiledetails
         SET
         profile_name=?,
+        team=?,
+        position=?,
+        college=?,
         age=?,
         height=?,
         weight=?,
         gender=?,
         sport=?,
         howoften=?,
-        location=?
+        location=?,
+        experience=?,
+        status=?
 
         WHERE profile_id=?
         "
     );
-    $stmt->bind_param("sssssssss", $profile_name, $age, $height, $weight, $gender, $sport,  $howoften,$location, $profile_id);
-    $stmt->execute();
+    $stmt->bind_param("ssssssssssssss", $profile_name, $team, $position, $college, $age, $height, $weight, $gender, $sport,  $howoften, $location, $experience, $play_status, $profile_id);
+    $result = $stmt->execute();
+    $stmt->close();
+
+    $stmt = $mysqli->prepare(
+        "UPDATE profile_achivements
+        SET
+            achivement_1=?,
+            achivement_2=?,
+            achivement_3=?,
+            achivement_4=?,
+            achivement_5=?
+
+        WHERE profile_id=?
+        "
+    );
+    $stmt->bind_param("ssssss",$achivement_1,$achivement_2,$achivement_3,$achivement_4,$achivement_5, $profile_id);
+    $result = $stmt->execute();
     $stmt->close();
 
 
+    return $result;
 }
 
 function isUserLoggedIn()
 {
-	global $loggedInUser, $mysqli;
-	$stmt = $mysqli->prepare("SELECT
+    global $loggedInUser, $mysqli;
+    $stmt = $mysqli->prepare("SELECT
 		userid,
 		user_password
 		FROM users
@@ -289,28 +372,176 @@ function isUserLoggedIn()
 		AND
 		active = 1
 		LIMIT 1");
-	$stmt->bind_param("ss", $loggedInUser->username, $loggedInUser->hash_pw);
-	$stmt->execute();
-	$stmt->store_result();
-	$num_returns = $stmt->num_rows;
-	$stmt->close();
-	
-	if($loggedInUser == NULL) {
-		return false;
-	} else {
-		if($num_returns > 0) {
-			return true;
-		} else {
-			destroySession("ThisUser");
-			return false;
-		}
-	}
+    $stmt->bind_param("ss", $loggedInUser->username, $loggedInUser->hash_pw);
+    $stmt->execute();
+    $stmt->store_result();
+    $num_returns = $stmt->num_rows;
+    $stmt->close();
+
+    if ($loggedInUser == NULL) {
+        return false;
+    } else {
+        if ($num_returns > 0) {
+            return true;
+        } else {
+            destroySession("ThisUser");
+            return false;
+        }
+    }
 }
 
 function destroySession($name)
 {
-	if(isset($_SESSION[$name])) {
-		$_SESSION[$name] = NULL;
-		unset($_SESSION[$name]);
+    if (isset($_SESSION[$name])) {
+        $_SESSION[$name] = NULL;
+        unset($_SESSION[$name]);
+    }
+}
+function deleterProfile($pro_id)
+{
+    global $mysqli;
+    $stmt = $mysqli->prepare(
+        "UPDATE profiledetails
+        SET
+        
+        profile_status=0
+
+        WHERE profile_id=?
+        "
+    );
+    $stmt->bind_param("s", $pro_id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+function fetchShortProfiles()
+{
+    global $mysqli;
+    $stmt = $mysqli->prepare(
+        "SELECT users.firstname,
+         users.lastname,
+         profiledetails.profile_id,
+         profiledetails.team,
+         profiledetails.position,
+         profiledetails.college,
+         profiledetails.age,
+         profiledetails.height,
+         profiledetails.weight,
+         profiledetails.gender,
+         profiledetails.sport,
+         profiledetails.howoften,
+         profiledetails.location,
+         profiledetails.experience,
+         profiledetails.status FROM
+          (users INNER JOIN profiles 
+          ON profiles.userid= users.userid)
+          INNER JOIN profiledetails 
+          
+          ON profiles.profile_id=profiledetails.profile_id 
+          ORDER BY RAND()
+        "
+    );
+    $stmt->execute();
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status);
+    while ($stmt->fetch()) {
+        $row[] = array(
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'id' => $id,
+
+            'team' => $team,
+            'position' => $position,
+            'college' => $college,
+
+            'age' => $age,
+            'height' => $height,
+            'weight' => $weight,
+            'gender' => $gender,
+            'sport' => $sport,
+            'howoften' => $howoften,
+            'location' => $location,
+            'experience' => $experience,
+
+            'play_status' => $play_status
+        );
+    }
+    $stmt->close();
+    return ($row);
+}
+
+function fetchFullProfile($profile_id)
+{
+    global $mysqli;
+    $stmt = $mysqli->prepare(
+        "SELECT users.firstname, 
+        users.lastname,
+        profiledetails.team,
+        profiledetails.position,
+        profiledetails.college,
+        profiledetails.age,
+        profiledetails.height,
+        profiledetails.weight,
+        profiledetails.gender,
+        profiledetails.sport,
+        profiledetails.howoften,
+        profiledetails.location,
+        profiledetails.experience,
+        profiledetails.status,
+        profile_achivements.achivement_1,
+        profile_achivements.achivement_2,
+        profile_achivements.achivement_3,
+        profile_achivements.achivement_4,
+        profile_achivements.achivement_5
+        
+        FROM 
+        (users INNER JOIN profiles ON profiles.userid= users.userid)
+        INNER JOIN profiledetails ON profiles.profile_id=profiledetails.profile_id 
+        INNER JOIN profile_achivements ON 
+        profiledetails.profile_id=profile_achivements.profile_id 
+        WHERE profiledetails.profile_id=?
+        LIMIT 1
+        "
+    );
+    $stmt->bind_param("s", $profile_id);
+    $stmt->execute();
+    $stmt->bind_result($firstname, $lastname, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status, $achv_1, $achv_2, $achv_3, $achv_4, $achv_5);
+    while ($stmt->fetch()) {
+        $row[] = array(
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+
+            'team' => $team,
+            'position' => $position,
+            'college' => $college,
+
+            'age' => $age,
+            'height' => $height,
+            'weight' => $weight,
+            'gender' => $gender,
+            'sport' => $sport,
+            'howoften' => $howoften,
+            'location' => $location,
+            'experience' => $experience,
+
+            'play_status' => $play_status,
+            'achv_1' => $achv_1,
+            'achv_2' => $achv_2,
+            'achv_3' => $achv_3,
+            'achv_4' => $achv_4,
+            'achv_5' => $achv_5
+
+
+        );
+    }
+    $stmt->close();
+    return ($row);
+}
+function generateHash($pass, $salt = NULL)
+{
+	if($salt === NULL) {
+		$salt = substr(md5(uniqid(rand(), TRUE)), 0, 25);
+	} else {
+		$salt = substr($salt, 0, 25);
 	}
+	return $salt . sha1($salt . $pass);
 }
