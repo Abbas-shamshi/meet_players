@@ -4,7 +4,7 @@
 $db_host = "localhost"; //name of host server
 $db_user = "root";  //name of sql user 
 $db_pass = "";      //passsword of sql
-$db_name = "meet_players";   //name of the database
+$db_name = "abb";   //name of the database
 
 //Creating Connection
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);

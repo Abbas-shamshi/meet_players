@@ -9,7 +9,7 @@
     <title></title>
     <!-- Font Awsome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
     <!-- Animation css -->
     <link rel="stylesheet" href="css/aos.css" />
     <!-- Bootstrap core CSS -->

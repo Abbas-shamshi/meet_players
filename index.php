@@ -70,7 +70,7 @@ $profiles = fetchShortProfiles();
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-sm-12 card-img">
 
-                            <img src="a.jpg" alt="Avatar" style="width:100%">
+                            <img src=<?php print $profile['image'] ?> alt="Avatar" style="width:100%">
 
 
 

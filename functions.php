@@ -432,7 +432,9 @@ function fetchShortProfiles()
          profiledetails.howoften,
          profiledetails.location,
          profiledetails.experience,
-         profiledetails.status FROM
+         profiledetails.status,
+         users.image
+          FROM
           (users INNER JOIN profiles 
           ON profiles.userid= users.userid)
           INNER JOIN profiledetails 
@@ -442,7 +444,7 @@ function fetchShortProfiles()
         "
     );
     $stmt->execute();
-    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status);
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
     while ($stmt->fetch()) {
         $row[] = array(
             'firstname' => $firstname,
@@ -462,7 +464,9 @@ function fetchShortProfiles()
             'location' => $location,
             'experience' => $experience,
 
-            'play_status' => $play_status
+            'play_status' => $play_status,
+            'image' => $image
+
         );
     }
     $stmt->close();
@@ -491,7 +495,8 @@ function fetchFullProfile($profile_id)
         profile_achivements.achivement_2,
         profile_achivements.achivement_3,
         profile_achivements.achivement_4,
-        profile_achivements.achivement_5
+        profile_achivements.achivement_5,
+        users.image
         
         FROM 
         (users INNER JOIN profiles ON profiles.userid= users.userid)
@@ -504,7 +509,7 @@ function fetchFullProfile($profile_id)
     );
     $stmt->bind_param("s", $profile_id);
     $stmt->execute();
-    $stmt->bind_result($firstname, $lastname, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status, $achv_1, $achv_2, $achv_3, $achv_4, $achv_5);
+    $stmt->bind_result($firstname, $lastname, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status, $achv_1, $achv_2, $achv_3, $achv_4, $achv_5,$image);
     while ($stmt->fetch()) {
         $row[] = array(
             'firstname' => $firstname,
@@ -528,7 +533,8 @@ function fetchFullProfile($profile_id)
             'achv_2' => $achv_2,
             'achv_3' => $achv_3,
             'achv_4' => $achv_4,
-            'achv_5' => $achv_5
+            'achv_5' => $achv_5,
+            'image' => $image
 
 
         );
@@ -562,7 +568,9 @@ function fetchSearcProfiles($searchquery){
          profiledetails.howoften,
          profiledetails.location,
          profiledetails.experience,
-         profiledetails.status FROM
+         profiledetails.status,
+         users.image
+          FROM
           (users INNER JOIN profiles 
           ON profiles.userid= users.userid)
           INNER JOIN profiledetails 
@@ -574,7 +582,7 @@ function fetchSearcProfiles($searchquery){
     );
     $stmt->bind_param('s',$searchquery);
     $stmt->execute();
-    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status);
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
     while ($stmt->fetch()) {
         $row[] = array(
             'firstname' => $firstname,
@@ -594,7 +602,8 @@ function fetchSearcProfiles($searchquery){
             'location' => $location,
             'experience' => $experience,
 
-            'play_status' => $play_status
+            'play_status' => $play_status,
+            'image' => $image
         );
     }
     $stmt->close();
@@ -620,7 +629,9 @@ function fetchSearcProfileslname($searchquery){
          profiledetails.howoften,
          profiledetails.location,
          profiledetails.experience,
-         profiledetails.status FROM
+         profiledetails.status,
+         users.image
+          FROM
           (users INNER JOIN profiles 
           ON profiles.userid= users.userid)
           INNER JOIN profiledetails 
@@ -632,7 +643,7 @@ function fetchSearcProfileslname($searchquery){
     );
     $stmt->bind_param('s',$searchquery);
     $stmt->execute();
-    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status);
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
     while ($stmt->fetch()) {
         $row[] = array(
             'firstname' => $firstname,
@@ -652,7 +663,8 @@ function fetchSearcProfileslname($searchquery){
             'location' => $location,
             'experience' => $experience,
 
-            'play_status' => $play_status
+            'play_status' => $play_status,
+            'image' => $image
         );
     }
     $stmt->close();
@@ -677,7 +689,9 @@ function fetchSearcProfileslocation($searchquery){
          profiledetails.howoften,
          profiledetails.location,
          profiledetails.experience,
-         profiledetails.status FROM
+         profiledetails.status,
+         users.image
+          FROM
           (users INNER JOIN profiles 
           ON profiles.userid= users.userid)
           INNER JOIN profiledetails 
@@ -689,7 +703,7 @@ function fetchSearcProfileslocation($searchquery){
     );
     $stmt->bind_param('s',$searchquery);
     $stmt->execute();
-    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status);
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
     while ($stmt->fetch()) {
         $row[] = array(
             'firstname' => $firstname,
@@ -709,7 +723,8 @@ function fetchSearcProfileslocation($searchquery){
             'location' => $location,
             'experience' => $experience,
 
-            'play_status' => $play_status
+            'play_status' => $play_status,
+            'image' => $image
         );
     }
     $stmt->close();
@@ -735,7 +750,9 @@ function fetchSearcProfilessport($searchquery){
          profiledetails.howoften,
          profiledetails.location,
          profiledetails.experience,
-         profiledetails.status FROM
+         profiledetails.status,
+         users.image
+          FROM
           (users INNER JOIN profiles 
           ON profiles.userid= users.userid)
           INNER JOIN profiledetails 
@@ -747,7 +764,7 @@ function fetchSearcProfilessport($searchquery){
     );
     $stmt->bind_param('s',$searchquery);
     $stmt->execute();
-    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status);
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
     while ($stmt->fetch()) {
         $row[] = array(
             'firstname' => $firstname,
@@ -767,7 +784,8 @@ function fetchSearcProfilessport($searchquery){
             'location' => $location,
             'experience' => $experience,
 
-            'play_status' => $play_status
+            'play_status' => $play_status,
+            'image' => $image
         );
     }
     $stmt->close();
