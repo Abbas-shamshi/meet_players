@@ -295,8 +295,6 @@ select {
     margin-top: 20px;
 }
 
-.flex_child1 {}
-
 .flex_child2 {
     margin: auto;
 }
@@ -321,4 +319,7 @@ select {
 
 .mar-0 {
     margin-top: 0;
+}
+.searchBar{
+    margin-left: 10px;
 }

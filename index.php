@@ -7,8 +7,8 @@ $profiles = fetchShortProfiles();
 
 ?>
 <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-12 col-sm-12 margin-top">
-    <h3>Search</h3>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-sm-12 margin-top searchBar">
+        <h3>Search</h3>
 
         <form id="search" action="searchfname.php" method="post">
             <div class="profile-data">
@@ -61,8 +61,8 @@ $profiles = fetchShortProfiles();
     </div>
     <div class="col-lg-9 col-md-9 col-sm-12 col-sm-12 margin-top">
         <?php $i = 0;
-                                    foreach ($profiles as $profile) {
-                                        $i++;
+        foreach ($profiles as $profile) {
+            $i++;
         ?>
 
             <div class=" container card ">
@@ -82,7 +82,7 @@ $profiles = fetchShortProfiles();
 
                             <div class="p_container">
                                 <h4><b><?php print $profile['firstname'] . " ";
-                                                print $profile['lastname'] ?></b></h4>
+                                        print $profile['lastname'] ?></b></h4>
                                 <!-- <div class="flex">
                             <div class="flex_child1">Sport: Football</div>
                             <div class="flex_child2">position: Defender</div>

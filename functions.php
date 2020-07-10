@@ -45,7 +45,7 @@ function createUser($username, $firstname, $lastname, $email, $password)
     $stmt->close();
     return $result;
 }
-
+//This will fetch user details of the user during login 
 function FetchUserDetails($username, $password)
 {
     global $mysqli;
@@ -86,6 +86,7 @@ function FetchUserDetails($username, $password)
     $stmt->close();
     return ($row);
 }
+//This will create user profile of the particulat user
 function InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $team, $position, $college, $experience, $play_status, $ThisUserId, $achivement_1, $achivement_2, $achivement_3, $achivement_4, $achivement_5)
 {
     $character_array = array_merge(range('A', 'Z'), range(0, 9));
@@ -186,7 +187,7 @@ function InsertProfile($profile_name, $age, $height, $weight, $gender, $sport, $
     echo $achivement_1;
 }
 
-
+// This will fetch all user's profile on index page
 function fetchprofiles($ThisUserId)
 {
     global $mysqli;
@@ -213,7 +214,7 @@ function fetchprofiles($ThisUserId)
 }
 
 
-
+// This will fetch all the profiles of the user
 function fetchprofileName($ThisUserId)
 {
     global $mysqli;
@@ -243,7 +244,7 @@ function fetchprofileName($ThisUserId)
 
 
 
-
+// This will fetch full profile of the user
 function fetchprofile($profile_id)
 {
     global $mysqli;
@@ -310,7 +311,7 @@ function fetchprofile($profile_id)
     return ($row);
 }
 
-
+// This will update
 function EditProfile($profile_name, $age, $height, $weight, $gender, $sport, $location, $howoften, $team, $position, $college, $experience, $play_status, $profile_id,$achivement_1,$achivement_2,$achivement_3,$achivement_4,$achivement_5)
 {
     global $mysqli;
@@ -576,7 +577,7 @@ function fetchSearcProfiles($searchquery){
           INNER JOIN profiledetails 
           
           ON profiles.profile_id=profiledetails.profile_id 
-          WHERE users.firstname=?
+          WHERE users.firstname LIKE ?
           ORDER BY RAND()
         "
     );
