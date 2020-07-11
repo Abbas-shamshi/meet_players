@@ -1,20 +1,31 @@
 <?php
+
+use function PHPSTORM_META\elementType;
+
 require_once("config.php");
 require_once("functions.php");
 require_once("head.php");
 require_once("header.php");
-$profiles = fetchShortProfiles();
+if (!empty($_POST['firstname'])) {
+    $searchquery = $_POST['firstname'];
 
+    $profiles = fetchSearcProfiles($searchquery);
+}
+else{
+    $searchquery = $_POST['fname'];
+    $profiles = fetchSearcProfiles($searchquery);
+
+}
 ?>
 <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-12 col-sm-12 margin-top searchBar">
-        <h3>Search</h3>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-sm-12 margin-top">
+    <h3>Search</h3>
 
-        <form id="search" action="searchfname.php" method="post">
+        <form id="search" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
             <div class="profile-data">
                 <p>
                     <label>first name:</label>
-                    <input type="text" name="fname" />
+                    <input type="text" name="firstname" />
                 </p>
                 <p>
                     <label>&nbsp;</label>
@@ -34,7 +45,7 @@ $profiles = fetchShortProfiles();
                 </p>
             </div>
         </form>
-        <form id="search" action="searchlocation.php" method="post">
+        <form id="search" action="searchlocation.php ?>" method="post">
             <div class="profile-data">
                 <p>
                     <label>Location:</label>
@@ -61,8 +72,8 @@ $profiles = fetchShortProfiles();
     </div>
     <div class="col-lg-9 col-md-9 col-sm-12 col-sm-12 margin-top">
         <?php $i = 0;
-        foreach ($profiles as $profile) {
-            $i++;
+                                    foreach ($profiles as $profile) {
+                                        $i++;
         ?>
 
             <div class=" container card ">
@@ -70,7 +81,7 @@ $profiles = fetchShortProfiles();
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-sm-12 card-img">
 
-                            <img src=<?php print $profile['image'] ?> alt="Avatar" style="width:100%">
+                            <img src="<?php print $profile['image'] ?>" alt="Avatar" style="width:100%">
 
 
 
@@ -82,7 +93,7 @@ $profiles = fetchShortProfiles();
 
                             <div class="p_container">
                                 <h4><b><?php print $profile['firstname'] . " ";
-                                        print $profile['lastname'] ?></b></h4>
+                                                print $profile['lastname'] ?></b></h4>
                                 <!-- <div class="flex">
                             <div class="flex_child1">Sport: Football</div>
                             <div class="flex_child2">position: Defender</div>
