@@ -320,6 +320,11 @@ select {
 .mar-0 {
     margin-top: 0;
 }
-.searchBar{
-    margin-left: 10px;
+
+.background-border{
+    border-width: 2px;
+}
+.btn-color{
+    background-color: #84599d;
+    color: white;
 }
