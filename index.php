@@ -3,61 +3,68 @@ require_once("config.php");
 require_once("functions.php");
 require_once("head.php");
 require_once("header.php");
-$profiles = fetchShortProfiles();
+if (!empty($_POST)) {
+    if (!empty($_POST['fname'])) {
+        $fname = "%" . $_POST['fname'] . "%";
+    } else {
+        $fname = "%%";
+    }
+    if (!empty($_POST['lname'])) {
+        $lname = "%" . $_POST['lname'] . "%";
+    } else {
+        $lname = "%%";
+    }
+    if (!empty($_POST['location'])) {
+        $location = "%" . $_POST['location'] . "%";
+    } else {
+        $location = "%%";
+    }
+    if (!empty($_POST['sport'])) {
+        $sport = "%" . $_POST['sport'] . "%";
+    } else {
+        $sport = "%%";
+    }
+
+    $profiles = fetchSearcProfiles($fname, $lname, $location, $sport);
+} else {
+    $profiles = fetchShortProfiles();
+}
 
 ?>
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-12 col-sm-12 margin-top searchBar">
-        <h3>Search</h3>
+        <div class="background-border">
+            <h3>Search</h3>
 
-        <form id="search" action="searchfname.php" method="post">
-            <div class="profile-data">
-                <p>
-                    <label>first name:</label>
-                    <input type="text" name="fname" />
-                </p>
-                <p>
-                    <label>&nbsp;</label>
-                    <input type="submit" value="search" class="submit" />
-                </p>
-            </div>
-        </form>
-        <form id="search" action="searchlname.php" method="post">
-            <div class="profile-data">
-                <p>
-                    <label>Last name:</label>
-                    <input type="text" name="lname" />
-                </p>
-                <p>
-                    <label>&nbsp;</label>
-                    <input type="submit" value="search" class="submit" />
-                </p>
-            </div>
-        </form>
-        <form id="search" action="searchlocation.php" method="post">
-            <div class="profile-data">
-                <p>
-                    <label>Location:</label>
-                    <input type="text" name="loc" />
-                </p>
-                <p>
-                    <label>&nbsp;</label>
-                    <input type="submit" value="search" class="submit" />
-                </p>
-            </div>
-        </form>
-        <form id="search" action="searchsport.php" method="post">
-            <div class="profile-data">
-                <p>
-                    <label>Sport:</label>
-                    <input type="text" name="spo" />
-                </p>
-                <p>
-                    <label>&nbsp;</label>
-                    <input type="submit" value="search" class="submit" />
-                </p>
-            </div>
-        </form>
+            <form id="search" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
+                <div class="profile-data">
+                    <p>
+                        <label>first name:</label>
+                        <input type="text" name="fname" />
+                    </p>
+
+
+                    <p>
+                        <label>Last name:</label>
+                        <input type="text" name="lname" />
+                    </p>
+
+
+                    <p>
+                        <label>Location:</label>
+                        <input type="text" name="location" />
+                    </p>
+
+                    <p>
+                        <label>Sport:</label>
+                        <input type="text" name="sport" />
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-color" value="submit">Submit</button>
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="col-lg-9 col-md-9 col-sm-12 col-sm-12 margin-top">
         <?php $i = 0;
