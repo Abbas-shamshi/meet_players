@@ -75,12 +75,12 @@ require_once("header.php");
             <h4>Connect with Players around you.</h4>
         </div>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12 ml-auto">
         <div class="block2">
 
             <h1>Log IN</h1>
-            <h4>Sign into your Profile</h4>
-            <div>
+            <h4 class="mt-5">Sign into your Profile</h4>
+            <div class="mt-4">
                 <form id="contactform" action="<?php $_SERVER["PHP_SELF"]; ?>" method="post">
                     <input type="text" id="u_name" name="username" value="" class="form-control" placeholder="User Name">
                     <span class="error" id="u_name_err">
@@ -95,7 +95,7 @@ require_once("header.php");
                         } ?>
                     </span>
 
-                    <div class="row">
+                    <div class="row mt-5">
                         <div class="col-lg-5 col-md-5 col-sm-12 col-sm-12">
                             <button type="submit" id="submit" name="submit">Log In
                                 <i class="fas fa-user" aria-hidden="true"></i>
