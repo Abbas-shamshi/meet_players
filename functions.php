@@ -552,7 +552,7 @@ function generateHash($pass, $salt = NULL)
 	}
 	return $salt . sha1($salt . $pass);
 }
-function fetchSearcProfiles($fname,$lname,$location,$sport){
+function fetchSearcProfiles($searchquery){
     global $mysqli;
     $stmt = $mysqli->prepare(
         "SELECT users.firstname,
@@ -577,14 +577,11 @@ function fetchSearcProfiles($fname,$lname,$location,$sport){
           INNER JOIN profiledetails 
           
           ON profiles.profile_id=profiledetails.profile_id 
-          WHERE users.firstname LIKE ? 
-          AND users.lastname LIKE ? 
-          AND profiledetails.location LIKE ? 
-          AND profiledetails.sport Like ?
+          WHERE users.firstname LIKE ?
           ORDER BY RAND()
         "
     );
-    $stmt->bind_param('ssss',$fname,$lname,$location,$sport);
+    $stmt->bind_param('s',$searchquery);
     $stmt->execute();
     $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
     while ($stmt->fetch()) {
@@ -615,3 +612,183 @@ function fetchSearcProfiles($fname,$lname,$location,$sport){
 
 }
 
+
+function fetchSearcProfileslname($searchquery){
+    global $mysqli;
+    $stmt = $mysqli->prepare(
+        "SELECT users.firstname,
+         users.lastname,
+         profiledetails.profile_id,
+         profiledetails.team,
+         profiledetails.position,
+         profiledetails.college,
+         profiledetails.age,
+         profiledetails.height,
+         profiledetails.weight,
+         profiledetails.gender,
+         profiledetails.sport,
+         profiledetails.howoften,
+         profiledetails.location,
+         profiledetails.experience,
+         profiledetails.status,
+         users.image
+          FROM
+          (users INNER JOIN profiles 
+          ON profiles.userid= users.userid)
+          INNER JOIN profiledetails 
+          
+          ON profiles.profile_id=profiledetails.profile_id 
+          WHERE users.lastname=?
+          ORDER BY RAND()
+        "
+    );
+    $stmt->bind_param('s',$searchquery);
+    $stmt->execute();
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
+    while ($stmt->fetch()) {
+        $row[] = array(
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'id' => $id,
+
+            'team' => $team,
+            'position' => $position,
+            'college' => $college,
+
+            'age' => $age,
+            'height' => $height,
+            'weight' => $weight,
+            'gender' => $gender,
+            'sport' => $sport,
+            'howoften' => $howoften,
+            'location' => $location,
+            'experience' => $experience,
+
+            'play_status' => $play_status,
+            'image' => $image
+        );
+    }
+    $stmt->close();
+    return ($row);
+
+}
+
+function fetchSearcProfileslocation($searchquery){
+    global $mysqli;
+    $stmt = $mysqli->prepare(
+        "SELECT users.firstname,
+         users.lastname,
+         profiledetails.profile_id,
+         profiledetails.team,
+         profiledetails.position,
+         profiledetails.college,
+         profiledetails.age,
+         profiledetails.height,
+         profiledetails.weight,
+         profiledetails.gender,
+         profiledetails.sport,
+         profiledetails.howoften,
+         profiledetails.location,
+         profiledetails.experience,
+         profiledetails.status,
+         users.image
+          FROM
+          (users INNER JOIN profiles 
+          ON profiles.userid= users.userid)
+          INNER JOIN profiledetails 
+          
+          ON profiles.profile_id=profiledetails.profile_id 
+          WHERE profiledetails.location=?
+          ORDER BY RAND()
+        "
+    );
+    $stmt->bind_param('s',$searchquery);
+    $stmt->execute();
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
+    while ($stmt->fetch()) {
+        $row[] = array(
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'id' => $id,
+
+            'team' => $team,
+            'position' => $position,
+            'college' => $college,
+
+            'age' => $age,
+            'height' => $height,
+            'weight' => $weight,
+            'gender' => $gender,
+            'sport' => $sport,
+            'howoften' => $howoften,
+            'location' => $location,
+            'experience' => $experience,
+
+            'play_status' => $play_status,
+            'image' => $image
+        );
+    }
+    $stmt->close();
+    return ($row);
+
+} 
+
+
+function fetchSearcProfilessport($searchquery){
+    global $mysqli;
+    $stmt = $mysqli->prepare(
+        "SELECT users.firstname,
+         users.lastname,
+         profiledetails.profile_id,
+         profiledetails.team,
+         profiledetails.position,
+         profiledetails.college,
+         profiledetails.age,
+         profiledetails.height,
+         profiledetails.weight,
+         profiledetails.gender,
+         profiledetails.sport,
+         profiledetails.howoften,
+         profiledetails.location,
+         profiledetails.experience,
+         profiledetails.status,
+         users.image
+          FROM
+          (users INNER JOIN profiles 
+          ON profiles.userid= users.userid)
+          INNER JOIN profiledetails 
+          
+          ON profiles.profile_id=profiledetails.profile_id 
+          WHERE profiledetails.sport=?
+          ORDER BY RAND()
+        "
+    );
+    $stmt->bind_param('s',$searchquery);
+    $stmt->execute();
+    $stmt->bind_result($firstname, $lastname, $id, $team, $position, $college, $age, $height, $weight, $gender, $sport, $howoften, $location, $experience, $play_status,$image);
+    while ($stmt->fetch()) {
+        $row[] = array(
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'id' => $id,
+
+            'team' => $team,
+            'position' => $position,
+            'college' => $college,
+
+            'age' => $age,
+            'height' => $height,
+            'weight' => $weight,
+            'gender' => $gender,
+            'sport' => $sport,
+            'howoften' => $howoften,
+            'location' => $location,
+            'experience' => $experience,
+
+            'play_status' => $play_status,
+            'image' => $image
+        );
+    }
+    $stmt->close();
+    return ($row);
+}

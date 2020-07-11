@@ -24,11 +24,11 @@ if (isUserLoggedIn()) {
 
             </div>
     <?php
-        }
-    } else {
-        header("Location: login.php");
-        die();
-    }
+                                                                                                }
+                                                                                            } else {
+                                                                                                header("Location: login.php");
+                                                                                                die();
+                                                                                            }
 
     ?><div class="col-lg-4 col-md-4 col-sm-6 col-sm-12 pbutton">
         <a href="profile.php" class="">Create New Profile
@@ -41,5 +41,5 @@ if (isUserLoggedIn()) {
 
     <?php
 
-    require_once("footer.php");
+                                                                                            require_once("footer.php");
     ?>
