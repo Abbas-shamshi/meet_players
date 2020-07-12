@@ -332,3 +332,20 @@ select {
     background-color: #84599d;
     color: white;
 }
+.upload-image{
+    display: flex;
+    width: 275px;
+    height: 275px;
+    background-color: rgb(197, 173, 173);
+    align-items: center;
+    border-radius: 275px;
+    margin: auto;
+}
+.imageInput{
+    margin-left: 30px;
+
+}
+.imageProfileText{
+    text-align: center;
+    font-size: 28px;
+}

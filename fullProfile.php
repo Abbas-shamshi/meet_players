@@ -110,7 +110,7 @@ $profiles = fetchFullProfile($profile_id);
 
                                 </div>
                             </div>
-                            <div class="achive">
+                            <!-- <div class="achive">
                                 <h3>Achivements</h3>
                                 <ul>
                                 <li><p><?php print $profile['achv_1']?></p></li>
@@ -118,11 +118,8 @@ $profiles = fetchFullProfile($profile_id);
                                 <li><p><?php print $profile['achv_3']?></p></li>
                                 <li><p><?php print $profile['achv_4']?></p></li>
                                 <li><p><?php print $profile['achv_5']?></p></li>
-
-
-
                                 </ul>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
