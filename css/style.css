@@ -44,7 +44,7 @@ footer {
 }
 
 .block1 {
-    width: 500px;
+    width: 420px;
     padding: 20px;
     background-color: #f3f3f3;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
@@ -101,7 +101,6 @@ h4 {
     color: #fff;
     border: none;
     background-color: #40004d;
-    width: 290px;
 }
 
 .meet-tag h1 {
@@ -185,6 +184,9 @@ h4 {
     text-align: center;
 }
 
+.btn-width {
+    width: 290px;
+}
 
 select {
     border-radius: 8px;
