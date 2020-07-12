@@ -101,6 +101,7 @@ h4 {
     color: #fff;
     border: none;
     background-color: #40004d;
+    width: 290px;
 }
 
 .meet-tag h1 {
@@ -184,9 +185,6 @@ h4 {
     text-align: center;
 }
 
-.btn-width {
-    width: 50%;
-}
 
 select {
     border-radius: 8px;

@@ -46,7 +46,7 @@ require_once("head.php");
 
 require_once("header.php");
 ?>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
 
 
